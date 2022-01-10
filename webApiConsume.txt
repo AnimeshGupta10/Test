@@ -1,0 +1,72 @@
+Microsoft.AspNet.WebApi.Client
+from GenC Webex Trainer 91 to All Participants:
+public static HttpClient webclient = new HttpClient();
+from GenC Webex Trainer 91 to All Participants:
+using System.Net.Http;
+from GenC Webex Trainer 91 to All Participants:
+create a class
+from GenC Webex Trainer 91 to All Participants:
+public  class book
+    {
+        public int bookid { get; set; }
+        public string booknm { get; set; }
+        public Nullable<int> qty { get; set; }}
+from GenC Webex Trainer 91 to All Participants:
+ private void CreateRecord()
+        {            
+            book pm = new book ();
+            pm.bookid  = 345;
+            pm.booknm   = "Pallavan1";
+            //pm.authnm="sriram1";
+            //pm.price = 250;
+            pm.qty = 20;
+            HttpResponseMessage hrm = webclient.PostAsJsonAsync("https://localhost:44366/api/booksses", pm).Result;
+            Console.WriteLine("Inserted");
+        }
+from GenC Webex Trainer 91 to All Participants:
+ private void ShowRecords()
+        {
+            IEnumerable<book> books;
+            HttpResponseMessage webresponse = webclient.GetAsync("https://localhost:44366/api/booksses").Result;
+            books = webresponse.Content.ReadAsAsync<IEnumerable<book>>().Result;
+            foreach ( var pm in books)
+            {
+                Console.WriteLine(pm.booknm);
+            }
+        }
+from GenC Webex Trainer 91 to All Participants:
+ private void DeleteRecord()
+        {
+            Console.WriteLine("Enter Id to delete");
+            int id = 235;// Convert.ToInt32(Console.ReadLine());
+            HttpResponseMessage httpresponse = webclient.DeleteAsync("https://localhost:44366/api/booksses/" + id).Result;
+            Console.WriteLine("delete over");
+        }
+from GenC Webex Trainer 91 to All Participants:
+private void EditRecord()
+        {
+            book pm = new book();
+            pm.bookid = 5500;
+            pm.booknm = "Pallavan1";
+            //pm.authnm = "Ramajayam";
+            //pm.price = 350;
+            pm.qty = 10;
+            //HttpResponseMessage httpresponse = webclient.PutAsJsonAsync("https://localhost:44366/api/booksses/" + pm.bookid   , pm).Result;
+            Console.WriteLine("Edit over");
+        }
+from GenC Webex Trainer 91 to All Participants:
+static void Main(string[] args)
+        {
+            Program pg = new Program();
+            /*  Console.WriteLine("creating record");
+                pg.CreateRecord();
+              Console.WriteLine("Edit record");
+              //pg.EditRecord();
+              Console.WriteLine("Done with delete record");
+              pg.DeleteRecord();*/
+            // pg.EditRecord();
+            pg.CreateRecord();
+            Console.WriteLine("New record added");
+            pg.ShowRecords();
+            Console.ReadKey();
+        }

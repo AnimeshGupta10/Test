@@ -1,0 +1,49 @@
+CREATE FUNCTION fnbook_info(@bookid int )  
+RETURNS decimal(5,2)
+BEGIN  
+    RETURN (SELECT qty*price As Sum FROM bookss  
+        WHERE bookid=@bookid)  
+END
+print dbo.fnbook_info(1)
+
+Table valued function
+CREATE FUNCTION fdept (@id int)
+RETURNS table
+AS
+RETURN
+    SELECT *
+    FROM Dept
+    WHERE DeptId  > @id;
+select * from fdept(300)
+*********************
+Create function EmpInfo()      
+returns table       
+as      
+return(select * from Employee  )  
+select * from EmpInfo()
+************************************
+
+from Super user to All Participants:
+create a function which will return member details of
+ members who has joined in library before Mar 2000
+
+Create function Details()
+returns table
+as
+return(select * from table_name where Year(dt) <='2000' && Month(dt) <= '03') 
+select * from Details()
+
+create  proc Del(@book_id int) as
+begin
+    delete from books where book_id = @book_id
+end
+exec Del 1
+
+create function fn_count()
+returns int
+begin
+return(select count(id) from table where Month(dt) = '02')
+end
+
+select * from fn_count()
+
